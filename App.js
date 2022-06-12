@@ -4,6 +4,9 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
+import * as SQLite from "expo-sqlite";
+
+const db = SQLite.openDatabase("notes.db");
 
 function NotesScreen({ navigation }) {
   useEffect(() => {
