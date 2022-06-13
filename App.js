@@ -1,118 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { Entypo } from "@expo/vector-icons";
 import * as SQLite from "expo-sqlite";
+import NotesStack from "./screens/NotesStack";
+import AddScreen from "./screens/AddScreen";
 
 const db = SQLite.openDatabase("notes.db");
-
-function NotesScreen({ navigation }) {
-  // create state variable for our notes
-  const [notes, setNotes] = useState([
-    { title: "walk dog", done: false, id: "0" },
-    { title: "water plant", done: false, id: "1" },
-  ]);
-
-  function addNote() {
-    let newNote = {
-      title: "Sample new note",
-      done: false,
-      id: notes.length.toString(),
-    };
-    setNotes([...notes, newNote]);
-  }
-
-  // this adds the new note button in the header
-  useEffect(() => {
-    console.log("wot");
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={addNote}>
-          <Entypo
-            name="new-message"
-            size={24}
-            color="black"
-            style={{ marginRight: 16 }}
-          />
-        </TouchableOpacity>
-      ),
-    });
-  });
-
-  function renderItem({ item }) {
-    return (
-      <View
-        style={{
-          padding: 10,
-          paddingTop: 20,
-          paddingBottom: 20,
-          borderBottomColor: "hotpink",
-          borderBottomWidth: 1,
-        }}
-      >
-        <Text style={{ fontSize: 16, textAlign: "left" }}>{item.title}</Text>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={notes}
-        renderItem={renderItem}
-        style={{ width: "100%" }}
-      />
-    </View>
-  );
-}
-
-const InnerStack = createStackNavigator();
-
-function NotesStack() {
-  return (
-    <InnerStack.Navigator>
-      <InnerStack.Screen
-        name="notes"
-        component={NotesScreen}
-        options={{
-          headertitle: "Notes App",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontsize: 30,
-          },
-          headerStyle: {
-            height: 120,
-            backgroundColor: "yellow",
-            borderBottomColor: "hotpink",
-            borderbottomwidth: 1,
-          },
-        }}
-      ></InnerStack.Screen>
-    </InnerStack.Navigator>
-  );
-}
-
-function AddScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>This is the add screen</Text>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={{ padding: 10 }}
-      >
-        <Text style={{ color: "orange" }}>Dismiss</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 const Stack = createStackNavigator();
 
@@ -130,12 +23,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffc",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
