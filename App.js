@@ -50,9 +50,15 @@ function NotesScreen({ navigation }) {
   function renderItem({ item }) {
     return (
       <View
-        style={{ padding: 10, borderBottomColor: "#ccc", borderBottomWidth: 1 }}
+        style={{
+          padding: 10,
+          paddingTop: 20,
+          paddingBottom: 20,
+          borderBottomColor: "hotpink",
+          borderBottomWidth: 1,
+        }}
       >
-        <Text style={{ fontSize: 16 }}>{item.title}</Text>
+        <Text style={{ fontSize: 16, textAlign: "left" }}>{item.title}</Text>
       </View>
     );
   }
