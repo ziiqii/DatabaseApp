@@ -74,29 +74,58 @@ function NotesScreen({ navigation }) {
   );
 }
 
+const InnerStack = createStackNavigator();
+
+function NotesStack() {
+  return (
+    <InnerStack.Navigator>
+      <InnerStack.Screen
+        name="notes"
+        component={NotesScreen}
+        options={{
+          headertitle: "Notes App",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontsize: 30,
+          },
+          headerStyle: {
+            height: 120,
+            backgroundColor: "yellow",
+            borderBottomColor: "hotpink",
+            borderbottomwidth: 1,
+          },
+        }}
+      ></InnerStack.Screen>
+    </InnerStack.Navigator>
+  );
+}
+
+function AddScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>This is the add screen</Text>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{ padding: 10 }}
+      >
+        <Text style={{ color: "orange" }}>Dismiss</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator mode="modal" header="none">
         <Stack.Screen
-          name="Notes"
-          component={NotesScreen}
-          options={{
-            title: "Todo",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: 24,
-            },
-            headerStyle: {
-              backgroundColor: "orange",
-              height: 120,
-              borderBottomColor: "#999",
-              borderBottomWidth: 2,
-            },
-          }}
+          name="Notes Stack"
+          component={NotesStack}
+          options={{ headerShown: false }}
         />
+        <Stack.Screen name="Add Note" component={AddScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
