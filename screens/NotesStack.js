@@ -8,7 +8,7 @@ export default function NotesStack() {
   return (
     <InnerStack.Navigator>
       <InnerStack.Screen
-        name="notes"
+        name="Notes"
         component={NotesScreen}
         options={{
           headertitle: "Notes App",

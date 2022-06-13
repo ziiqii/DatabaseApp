@@ -13,11 +13,15 @@ export default function AddScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text style={styles.label}>Add your Todo!</Text>
-      <TextInput style={styles.textInput} value={text} onChangeText={(newText) => setText(newText)} />
+      <TextInput
+        style={styles.textInput}
+        value={text}
+        onChangeText={(newText) => setText(newText)}
+      />
       <View style={styles.buttons}>
         <TouchableOpacity
           style={[styles.button, styles.submitButton]}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Notes", { text })}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>

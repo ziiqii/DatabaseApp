@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-export default function NotesScreen({ navigation }) {
+export default function NotesScreen({ navigation, route }) {
   // create state variable for our notes
   const [notes, setNotes] = useState([
     { title: "walk dog", done: false, id: "0" },
@@ -16,8 +16,19 @@ export default function NotesScreen({ navigation }) {
   ]);
 
   function addNote() {
-      navigation.navigate("Add Note");
+    navigation.navigate("Add Note");
   }
+
+  useEffect(() => {
+    if (route.params?.text) {
+      const newNote = {
+        title: route.params.text,
+        done: false,
+        id: notes.length.toString(),
+      };
+      setNotes([...notes, newNote])
+    }
+  }, [route.params?.text]); //optional chaining
 
   // this adds the new note button in the header
   useEffect(() => {
